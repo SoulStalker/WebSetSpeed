@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+</head>
+<body>
+  <form method="post" action="{% url 'main_page' %}">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Вывести данные</button>
+  </form>
+{% if analyze_day %}
+  <h1>Результат анализа</h1>
+    <p>Дата анализа: {{ analyze_day }}</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Column 1</th>
+          <th>Column 2</th>
+          <!-- Добавьте остальные заголовки столбцов -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table_data %}
+          <tr>
+            <td>{{ row.0 }}</td>
+            <td>{{ row.1 }}</td>
+            <td>{{ row.2 }}</td>
+            <td>{{ row.3 }}</td>
+            <td>{{ row.4 }}</td>
+            <td>{{ row.5 }}</td>
+            <td>{{ row.6 }}</td>
+            <td>{{ row.7 }}</td>
+            <td>{{ row.8 }}</td>
+            <td>{{ row.9 }}</td>
+            <!-- Добавьте остальные ячейки для других столбцов -->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endif %}
+</body>
+</html>
