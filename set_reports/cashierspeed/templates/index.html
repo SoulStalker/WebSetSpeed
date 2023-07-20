@@ -1,29 +1,42 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Главная страница</title>
+    <title>Торговая сеть Everyday :: Отчет по кассирам</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
+    <header class="header">
+    <div class="header-container">
+      <div class="header-top">
+        <a href="#" class="logo-link">
+          <img class="logo" src="{% static 'images/logo_transparent.png' %}" alt="Логотип">
+        </a>
+      </div>
+    </div>
+  </header>
   <h1>Скорость работы кассира</h1>
-  <p>Введите дату в формате ДД.ММ.ГГГГ, например 21.06.2023</p>
-  <p>Отчет будет создан за эту дату</p>
-  <form method="post" action="{% url 'main_page' %}">
-    {% csrf_token %}
-    {{ form.analyze_day }}
-    <div>
-      <label for="{{ form.filter_shop.id_for_label }}">Фильтр по магазину</label>
-      {{ form.filter_shop }}
-    </div>
-    <div>
-      <label for="{{ form.shop_num.id_for_label }}">Номер магазина</label>
-      {{ form.shop_num }}
-    </div>
-    <button type="submit">Вывести данные</button>
-  </form>
+  <div class="filter-container">
+    <form method="post" action="{% url 'main_page' %}">
+      {% csrf_token %}
+      <div class="form-row">
+        <label for="{{ form.analyze_day.id_for_label }}">Введите дату</label>
+        {{ form.analyze_day }}
+        <label for="{{ form.filter_shop.id_for_label }}">Фильтр по магазину</label>
+        {{ form.filter_shop }}
+        <label for="{{ form.shop_num.id_for_label }}">Номер магазина</label>
+        {{ form.shop_num }}
+        <button type="submit">Вывести данные</button>
+      </div>
+    </form>
+  </div>
+
 
 {% if analyze_day %}
-  <h1>Результат анализа</h1>
+  <div class="results-container">
+    <h2>Результат анализа</h2>
     <p>Дата анализа: {{ analyze_day }}</p>
     <table>
       <thead>
@@ -58,6 +71,18 @@
         {% endfor %}
       </tbody>
     </table>
-{% endif %}
+  </div>
+  {% endif %}
+
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="author-info">
+        <p class="author-name">&copy; 2023, Алмаз Галимов. Все права защищены</p>
+        <a class="telegram-link" href="https://t.me/SoulStalk3r">Telegram</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>

@@ -1,0 +1,192 @@
+@font-face {
+	 font-family: "Open Sans";
+	 src: url("https://netology-code.github.io/html-2-diploma/sources/fonts/OpenSans-Regular.woff") format("woff");
+	 font-weight: 400;
+}
+ @font-face {
+	 font-family: "Open Sans";
+	 src: url("https://netology-code.github.io/html-2-diploma/sources/fonts/OpenSans-Bold.woff") format("woff");
+	 font-weight: 700;
+}
+ * {
+	 margin: 0;
+	 padding: 0;
+	 box-sizing: border-box;
+	 font-family: "Open Sans", Arial, sans-serif;
+	 color: inherit;
+	 font-style: italic;
+}
+.header {
+	position: relative;
+}
+ .header-container {
+	 width: 100%;
+	 max-width: 1200px;
+	 margin: 0 auto;
+	 padding: 0 15px;
+	 z-index: 2;
+	 position: relative;
+}
+ .header-top {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 position: relative;
+}
+ .header::before {
+	 content: "";
+	 position: absolute;
+	 top: 0;
+	 width: 100%;
+	 height: calc(20% + 10px);
+	 background-color: #14693c;
+	 z-index: -1;
+}
+ .header::after {
+	 content: "";
+	 position: absolute;
+	 bottom: 0;
+	 left: 0;
+	 right: 0;
+	 width: 100%;
+	 height: calc(20% + 10px);
+	 background-color: #e31e24;
+	 z-index: -1;
+}
+ .logo {
+	 display: block;
+	 margin: 0 auto;
+	 width: 120%;
+	/* max-width: 300px;
+	 */
+}
+ .filter-container {
+	 margin: 20px 0;
+	 display: flex;
+	 flex-wrap: wrap;
+	 align-items: flex-start;
+}
+ .form-row {
+	 display: flex;
+	 align-items: center;
+	 justify-content: space-between;
+	 margin: 0 0 10px;
+	 flex-basis: calc(33.33% - 15px);
+}
+/* Стили для текста (лейблов) */
+ .form-row label {
+	 margin-right: 5px;
+}
+/* Стили для полей ввода */
+ .form-row input[type="text"], .form-row input[type="date"], .form-row input[type="checkbox"] {
+	 flex: 1;
+	 padding: 5px;
+	 margin-right: 10px;
+}
+/* Стили для кнопки "Вывести данные" */
+ button[type="submit"] {
+	 background-color: #14693c;
+	 color: white;
+	 padding: 8px 16px;
+	 border: none;
+	 cursor: pointer;
+	 font-size: 16px;
+	 margin: 5px;
+	 border-radius: 20px;
+}
+/* Добавьте отступ слева для кнопки "Вывести данные" */
+ button[type="submit"] {
+	 margin-left: 10px;
+}
+ button[type="submit"]:hover {
+	 background-color: #45a049;
+}
+/* Стили для заголовка */
+ h1 {
+	 color: #333;
+}
+ h2 {
+	 color: #333;
+	 margin-top: 20px;
+}
+/* Стили для таблицы */
+ table {
+	 table-layout: fixed;
+	 margin-left: 0;
+	 width: 100%;
+	 border-collapse: collapse;
+	 margin-top: 20px;
+
+}
+ table, th, td {
+	 border: 1px solid #ddd;
+
+}
+ th, td {
+	 padding: 8px;
+	 text-align: center;
+	 font-style: normal;
+	 white-space: nowrap;
+	 min-width: 100px;
+	 font-size: 12px;
+}
+ th {
+	 background-color: #f2f2f2;
+}
+ .results-container {
+	 overflow-x: auto;
+	/* Горизонтальная прокрутка при необходимости */
+	 max-width: 100%;
+	/* Ограничение максимальной ширины */
+}
+ .footer {
+	 background-color: #14693c;
+	 color: white;
+	 position: fixed;
+	 width: 100%;
+	 padding: 20px 0;
+	 bottom: 0;
+}
+ .footer-container {
+	 width: 100%;
+	 margin: 0 auto;
+	 padding: 20px;
+}
+ .footer-text {
+	 text-align: center;
+}
+ .button-container {
+	 display: flex;
+	 justify-content: center;
+	 align-items: center;
+	 flex-wrap: wrap;
+	 margin-top: 10px;
+}
+ .download-button {
+	 display: inline-block;
+	 padding: 8px 16px;
+	 margin: 5px;
+	 background-color: white;
+	 color: #14693c;
+	 border-radius: 20px;
+	 text-decoration: none;
+}
+/* Стили для информации об авторе */
+ .author-info {
+	 display: flex;
+	 align-items: center;
+	 justify-content: space-between;
+}
+ .author-name {
+	 margin-right: 10px;
+}
+ .telegram-link {
+	 color: white;
+	 text-decoration: none;
+	 padding: 5px 10px;
+	 border-radius: 5px;
+}
+/* Дополнительные стили, если нужно */
+ .author-info p, .author-info a {
+	 margin: 0;
+}
