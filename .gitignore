@@ -173,5 +173,6 @@ cython_debug/
 #.idea/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
-.idea/
-/set_reports/manage.py
+.idea
+set_reports/manage.py
+/set_reports/set_reports/settings.py

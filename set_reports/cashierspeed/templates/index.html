@@ -5,20 +5,39 @@
     <title>Главная страница</title>
 </head>
 <body>
+  <h1>Скорость работы кассира</h1>
+  <p>Введите дату в формате ДД.ММ.ГГГГ, например 21.06.2023</p>
+  <p>Отчет будет создан за эту дату</p>
   <form method="post" action="{% url 'main_page' %}">
     {% csrf_token %}
-    {{ form }}
+    {{ form.analyze_day }}
+    <div>
+      <label for="{{ form.filter_shop.id_for_label }}">Фильтр по магазину</label>
+      {{ form.filter_shop }}
+    </div>
+    <div>
+      <label for="{{ form.shop_num.id_for_label }}">Номер магазина</label>
+      {{ form.shop_num }}
+    </div>
     <button type="submit">Вывести данные</button>
   </form>
+
 {% if analyze_day %}
   <h1>Результат анализа</h1>
     <p>Дата анализа: {{ analyze_day }}</p>
     <table>
       <thead>
         <tr>
-          <th>Column 1</th>
-          <th>Column 2</th>
-          <!-- Добавьте остальные заголовки столбцов -->
+          <th>Кассир</th>
+          <th>Номер</th>
+          <th>Адрес</th>
+          <th>Дата</th>
+          <th>Средняя скорость позиции</th>
+          <th>Средняя скорость чека</th>
+          <th>Количество чеков</th>
+          <th>Отработано часов</th>
+          <th>Оборот, руб.</th>
+          <th>Средний чек</th>
         </tr>
       </thead>
       <tbody>

@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -27,8 +29,11 @@ def render_to_main(current_date, shop_num):
     analyzer.get_results(shop_num)
     analyzer.calculate_cashier_data()
     analyzer.generate_summary_data()
+    summary_data = analyzer.summary_data
     # analyzer.export_summary_to_excel(exporter)
-    return analyzer.summary_data
+    summary_data_sorted = sorted(summary_data, key=itemgetter(1, 0))
+
+    return summary_data_sorted
 
 
 def analyze(operation_day, all_week=None, all_month=None, shop_num=None):
@@ -66,8 +71,10 @@ def main_page(request):
         if form.is_valid():
             # Получение введенной пользователем даты из формы
             analyze_day = form.cleaned_data['analyze_day']
-            # analyze(datetime.strptime(analyze_day, '%d.%m.%Y'), all_week=True, shop_num=1)
-            table_data = analyze(analyze_day, all_week=True, shop_num=1)
+            filter_shop = form.cleaned_data['filter_shop']
+            shop_num = form.cleaned_data['shop_num'] if filter_shop else None
+            # фильтр по магазину
+            table_data = analyze(analyze_day, all_week=True, shop_num=shop_num)
             return render(request, 'index.html', {'form': form, 'analyze_day': analyze_day, 'table_data': table_data})
     else:
         form = DateForm()
