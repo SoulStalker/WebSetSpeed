@@ -70,18 +70,17 @@
 	 display: flex;
 	 align-items: center;
 	 justify-content: space-between;
-	 margin: 0 0 10px;
+	 /*margin: 0 10px 0 10px;*/
 	 flex-basis: calc(33.33% - 15px);
 }
-/* Стили для текста (лейблов) */
- .form-row label {
-	 margin-right: 5px;
-}
+ .form {
+	 margin-left: 10px;
+ }
 /* Стили для полей ввода */
  .form-row input[type="text"], .form-row input[type="date"], .form-row input[type="checkbox"] {
 	 flex: 1;
 	 padding: 5px;
-	 margin-right: 10px;
+
 }
 /* Стили для кнопки "Вывести данные" */
  button[type="submit"] {
@@ -103,8 +102,9 @@
 }
 /* Стили для заголовка */
  h1 {
-	 color: #333;
+	 margin-left: 20px;
 }
+
  h2 {
 	 color: #333;
 	 margin-top: 20px;

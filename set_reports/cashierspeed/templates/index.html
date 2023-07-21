@@ -22,7 +22,7 @@
     <form method="post" action="{% url 'main_page' %}">
       {% csrf_token %}
       <div class="form-row">
-        <label for="{{ form.analyze_day.id_for_label }}">Введите дату</label>
+        <label for="{{ form.analyze_day.id_for_label }}">Дата</label>
         {{ form.analyze_day }}
         <label for="{{ form.filter_shop.id_for_label }}">Фильтр по магазину</label>
         {{ form.filter_shop }}
