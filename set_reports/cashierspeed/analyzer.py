@@ -23,17 +23,18 @@ class DataAnalyzer:
         :param shop_index: можно передать номер магазина для фильтра.
         :return: результат запроса для дальнейшего анализа.
         """
-        query = db.query(Checks, Position, Session, User, Shift).select_from(Checks). \
-            join(Position, Checks.id == Position.id_purchase). \
-            join(Shift, Checks.id_shift == Shift.id). \
-            join(Session, Checks.id_session == Session.id). \
-            join(User, and_(Session.id_user == User.tabnum, User.shop == Shift.shopindex)). \
-            filter(Shift.operday == self.operation_day, Checks.checkstatus == 0)
+        with db as connection:
+            query = connection.query(Checks, Position, Session, User, Shift).select_from(Checks). \
+                join(Position, Checks.id == Position.id_purchase). \
+                join(Shift, Checks.id_shift == Shift.id). \
+                join(Session, Checks.id_session == Session.id). \
+                join(User, and_(Session.id_user == User.tabnum, User.shop == Shift.shopindex)). \
+                filter(Shift.operday == self.operation_day, Checks.checkstatus == 0)
 
-        if shop_index is not None:
-            query = query.filter(Shift.shopindex == shop_index)
+            if shop_index is not None:
+                query = query.filter(Shift.shopindex == shop_index)
 
-        self.results = query.order_by(Checks.id).all()
+            self.results = query.order_by(Checks.id).all()
 
     def calculate_cashier_data(self):
         """

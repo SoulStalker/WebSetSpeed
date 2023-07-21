@@ -32,37 +32,37 @@ def render_to_main(current_date, shop_num):
     summary_data = analyzer.summary_data
     # analyzer.export_summary_to_excel(exporter)
     summary_data_sorted = sorted(summary_data, key=itemgetter(1, 0))
-
+    print('data:', summary_data_sorted)
     return summary_data_sorted
 
 
-def analyze(operation_day, all_week=None, all_month=None, shop_num=None):
-    """
-    Основная функция для выборки и передачи данных для выгрузки excel.
-    :param operation_day: день или начальный день для выгрузки
-    :param all_week: выгружать ли неделю.
-    :param all_month: выгружать ли месяц
-    :param shop_num: номер магазина, если нужен фильтр по магазину.
-    :return: None.
-    """
-    if all_week:
-        day_count = 7
-        exporter = ExcelExporter(f'{operation_day.month}-{operation_day.year}.xlsx')
-        exporter.create_workbook()
-        for single_date in (operation_day + timedelta(n) for n in range(day_count)):
-            # put_to_excel(single_date, shop_num, exporter)
-            res = render_to_main(single_date, shop_num)
-            print(f'Analyze for day {datetime.strftime(single_date, "%Y-%m-%d")} is done')
-            return res
-
-    else:
-        exporter = ExcelExporter(f'{datetime.strftime(operation_day, "%Y-%m-%d")}.xlsx')
-        exporter.create_workbook()
-        # put_to_excel(operation_day, shop_num, exporter)
-        res = render_to_main(operation_day, shop_num)
-        # exporter.save_workbook()
-        print(2, res)
-        return res
+# def analyze(operation_day, all_week=None, all_month=None, shop_num=None):
+#     """
+#     Основная функция для выборки и передачи данных для выгрузки excel.
+#     :param operation_day: день или начальный день для выгрузки
+#     :param all_week: выгружать ли неделю.
+#     :param all_month: выгружать ли месяц
+#     :param shop_num: номер магазина, если нужен фильтр по магазину.
+#     :return: None.
+#     """
+#     if all_week:
+#         day_count = 7
+#         exporter = ExcelExporter(f'{operation_day.month}-{operation_day.year}.xlsx')
+#         exporter.create_workbook()
+#         for single_date in (operation_day + timedelta(n) for n in range(day_count)):
+#             # put_to_excel(single_date, shop_num, exporter)
+#             res = render_to_main(single_date, shop_num)
+#             print(f'Analyze for day {datetime.strftime(single_date, "%Y-%m-%d")} is done')
+#             return res
+#
+#     else:
+#         exporter = ExcelExporter(f'{datetime.strftime(operation_day, "%Y-%m-%d")}.xlsx')
+#         exporter.create_workbook()
+#         # put_to_excel(operation_day, shop_num, exporter)
+#         res = render_to_main(operation_day, shop_num)
+#         # exporter.save_workbook()
+#         print(2, res)
+#         return res
 
 
 def main_page(request):
@@ -74,7 +74,8 @@ def main_page(request):
             filter_shop = form.cleaned_data['filter_shop']
             shop_num = form.cleaned_data['shop_num'] if filter_shop else None
             # фильтр по магазину
-            table_data = analyze(analyze_day, all_week=True, shop_num=shop_num)
+            # table_data = analyze(analyze_day, all_week=True, shop_num=shop_num)
+            table_data = render_to_main(analyze_day, shop_num)
             return render(request, 'index.html', {'form': form, 'analyze_day': analyze_day, 'table_data': table_data})
     else:
         form = DateForm()

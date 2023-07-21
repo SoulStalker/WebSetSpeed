@@ -129,7 +129,9 @@
 	 white-space: nowrap;
 	 min-width: 100px;
 	 font-size: 12px;
+	 overflow: hidden;
 }
+
  th {
 	 background-color: #f2f2f2;
 }
