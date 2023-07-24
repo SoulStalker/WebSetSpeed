@@ -82,6 +82,8 @@ class DataAnalyzer:
             shop_number = cashier_info['shop_num']
             cashier = cashier_key[1:]
             date = cashier_info['date']
+            print(date)
+
             worked_hours = 12
             total_check_count = cashier_info['total_check_count']
             total_check_sum = cashier_info['total_check_sum'] / 100
@@ -93,6 +95,7 @@ class DataAnalyzer:
             row = cashier + (shop_number, settings.SE[shop_number], date, position_speed, check_speed, total_check_count,
                              worked_hours, total_check_sum, average_check)
             print(row)
+
             self.summary_data.append(row)
 
     def export_summary_to_excel(self, exporter):

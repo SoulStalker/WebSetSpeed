@@ -88,9 +88,14 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Находим чекбокс "Фильтр по магазину" и поле "Номер магазина"
         const filterShopCheckbox = document.getElementById("id_filter_shop");
         const shopNumInput = document.getElementById("id_shop_num");
+        const startDateInput = document.getElementById("id_analyze_day_start");
+        const endDateInput = document.getElementById("id_analyze_day_end");
+
+        const today = new Date();
+        startDateInput.value = today.toISOString().split('T')[0];
+        endDateInput.value = today.toISOString().split('T')[0];
 
         // Добавляем обработчик события на чекбокс
         filterShopCheckbox.addEventListener("change", function () {
@@ -102,8 +107,26 @@
                 shopNumInput.value = "";
             }
         });
+
+        // Устанавливаем максимальную дату для поля "Дата окончания" при загрузке страницы
+        const maxEndDate = new Date(startDateInput.value);
+        maxEndDate.setDate(maxEndDate.getDate() + 31);
+        endDateInput.setAttribute("max", maxEndDate.toISOString().split('T')[0]);
+
+        // Добавляем обработчик события на поле "Дата начала"
+        startDateInput.addEventListener("change", function () {
+            // Обновляем максимальную дату для поля "Дата окончания" при изменении даты начала
+            const maxEndDate = new Date(startDateInput.value);
+            maxEndDate.setDate(maxEndDate.getDate() + 31);
+            endDateInput.setAttribute("max", maxEndDate.toISOString().split('T')[0]);
+        });
+
+        // Устанавливаем значения по умолчанию при загрузке страницы
+        startDateInput.value = formattedToday;
+        endDateInput.value = formattedToday;
     });
 </script>
+
 
 </body>
 </html>
