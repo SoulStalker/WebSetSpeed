@@ -86,5 +86,24 @@
     </div>
   </footer>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Находим чекбокс "Фильтр по магазину" и поле "Номер магазина"
+        const filterShopCheckbox = document.getElementById("id_filter_shop");
+        const shopNumInput = document.getElementById("id_shop_num");
+
+        // Добавляем обработчик события на чекбокс
+        filterShopCheckbox.addEventListener("change", function () {
+            // Если галочка установлена, устанавливаем значение 1 в поле "Номер магазина"
+            if (filterShopCheckbox.checked) {
+                shopNumInput.value = "1";
+            } else {
+                // Если галочка не установлена, очищаем поле "Номер магазина"
+                shopNumInput.value = "";
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
