@@ -1,9 +1,9 @@
 from operator import itemgetter
+from datetime import datetime, timedelta
 
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from datetime import datetime, timedelta
 from .analyzer import DataAnalyzer
 from .excel import ExcelExporter
 from .forms import DateForm
@@ -24,15 +24,17 @@ from .forms import DateForm
 #     analyzer.export_summary_to_excel(exporter)
 
 
-def render_to_main(current_date, shop_num):
-    analyzer = DataAnalyzer(datetime.strftime(current_date, '%Y-%m-%d'))
+def render_to_main(start_date, end_date, shop_num):
+    start_date_str = datetime.strftime(start_date, '%Y-%m-%d')
+    end_date_str = datetime.strftime(end_date, '%Y-%m-%d')
+
+    analyzer = DataAnalyzer(start_date_str, end_date_str)
     analyzer.get_results(shop_num)
     analyzer.calculate_cashier_data()
     analyzer.generate_summary_data()
     summary_data = analyzer.summary_data
     # analyzer.export_summary_to_excel(exporter)
     summary_data_sorted = sorted(summary_data, key=itemgetter(1, 0))
-    print('data:', summary_data_sorted)
     return summary_data_sorted
 
 
@@ -69,14 +71,19 @@ def main_page(request):
     if request.method == 'POST':
         form = DateForm(request.POST)
         if form.is_valid():
-            # Получение введенной пользователем даты из формы
-            analyze_day = form.cleaned_data['analyze_day']
+            # Получение периода анализа
+            analyze_day_start = form.cleaned_data['analyze_day_start']
+            analyze_day_end = form.cleaned_data['analyze_day_end']
             filter_shop = form.cleaned_data['filter_shop']
             shop_num = form.cleaned_data['shop_num'] if filter_shop else None
             # фильтр по магазину
             # table_data = analyze(analyze_day, all_week=True, shop_num=shop_num)
-            table_data = render_to_main(analyze_day, shop_num)
-            return render(request, 'index.html', {'form': form, 'analyze_day': analyze_day, 'table_data': table_data})
+            table_data = render_to_main(analyze_day_start, analyze_day_end, shop_num)
+            return render(request, 'index.html', {
+                'form': form,
+                'analyze_day_start': analyze_day_start,
+                'analyze_day_end': analyze_day_end,
+                'table_data': table_data})
     else:
         form = DateForm()
     return render(request, 'index.html', {'form': form})

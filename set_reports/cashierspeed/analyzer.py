@@ -11,8 +11,9 @@ class DataAnalyzer:
     Класс для анализа данных из запроса к базе
     """
 
-    def __init__(self, operation_day):
-        self.operation_day = operation_day
+    def __init__(self, start_date, end_date):
+        self.start_date = start_date
+        self.end_date = end_date
         self.results = None
         self.cashier_data = None
         self.summary_data = None
@@ -29,7 +30,7 @@ class DataAnalyzer:
                 join(Shift, Checks.id_shift == Shift.id). \
                 join(Session, Checks.id_session == Session.id). \
                 join(User, and_(Session.id_user == User.tabnum, User.shop == Shift.shopindex)). \
-                filter(Shift.operday == self.operation_day, Checks.checkstatus == 0)
+                filter(Shift.operday >= self.start_date, Shift.operday <= self.end_date, Checks.checkstatus == 0)
 
             if shop_index is not None:
                 query = query.filter(Shift.shopindex == shop_index)

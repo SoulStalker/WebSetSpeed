@@ -4,7 +4,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Торговая сеть Everyday :: Отчет по кассирам</title>
+    <title>Отчет по кассирам</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -22,8 +22,10 @@
     <form method="post" action="{% url 'main_page' %}">
       {% csrf_token %}
       <div class="form-row">
-        <label for="{{ form.analyze_day.id_for_label }}">Дата</label>
-        {{ form.analyze_day }}
+        <label for="{{ form.analyze_day_start.id_for_label }}">Дата начала</label>
+        {{ form.analyze_day_start }}
+        <label for="{{ form.analyze_day_end.id_for_label }}">Дата окончания</label>
+        {{ form.analyze_day_end }}
         <label for="{{ form.filter_shop.id_for_label }}">Фильтр по магазину</label>
         {{ form.filter_shop }}
         <label for="{{ form.shop_num.id_for_label }}">Номер магазина</label>
@@ -34,10 +36,11 @@
   </div>
 
 
-{% if analyze_day %}
+{% if analyze_day_start and analyze_day_end %}
   <div class="results-container">
     <h2>Результат анализа</h2>
-    <p>Дата анализа: {{ analyze_day }}</p>
+    <p>Дата начала анализа: {{ analyze_day_start }}</p>
+    <p>Дата окончания анализа: {{ analyze_day_end }}</p>
     <table>
       <thead>
         <tr>
@@ -66,13 +69,12 @@
             <td>{{ row.7 }}</td>
             <td>{{ row.8 }}</td>
             <td>{{ row.9 }}</td>
-            <!-- Добавьте остальные ячейки для других столбцов -->
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
-  {% endif %}
+{% endif %}
 
 
   <footer class="footer">
