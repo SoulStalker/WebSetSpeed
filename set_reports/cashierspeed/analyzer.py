@@ -92,6 +92,7 @@ class DataAnalyzer:
 
             row = cashier + (shop_number, settings.SE[shop_number], date, position_speed, check_speed, total_check_count,
                              worked_hours, total_check_sum, average_check)
+            print(row)
             self.summary_data.append(row)
 
     def export_summary_to_excel(self, exporter):
